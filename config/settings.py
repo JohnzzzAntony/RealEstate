@@ -128,3 +128,14 @@ REST_FRAMEWORK = {
 TAILWIND_APP_NAME = 'theme' # We'll create this or just use CDN for simplicity in this scaffold
 
 AUTH_USER_MODEL = 'accounts.User'
+
+# Production Security Settings
+if not DEBUG:
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+    SECURE_SSL_REDIRECT = True
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+    SECURE_HSTS_SECONDS = 31536000
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    SECURE_HSTS_PRELOAD = True
+    SECURE_CONTENT_TYPE_NOSNIFF = True
