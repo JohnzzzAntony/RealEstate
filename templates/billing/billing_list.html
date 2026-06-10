@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block header %}Billing & Invoices{% endblock %}
+{% block content %}
+<div class="flex justify-between mb-4">
+    <h2 class="text-xl font-bold">Billing Records</h2>
+    <a href="{% url 'billing_create' %}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Create Invoice</a>
+</div>
+<div class="bg-white shadow-md rounded my-6">
+    <table class="min-w-full bg-white">
+        <thead>
+            <tr>
+                <th class="py-2 px-4 border-b">Invoice #</th>
+                <th class="py-2 px-4 border-b">Subtenant</th>
+                <th class="py-2 px-4 border-b">Amount</th>
+                <th class="py-2 px-4 border-b">Due Date</th>
+                <th class="py-2 px-4 border-b">Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for bill in bills %}
+            <tr>
+                <td class="py-2 px-4 border-b text-center">{{ bill.invoice_number }}</td>
+                <td class="py-2 px-4 border-b text-center">{{ bill.subtenant.tenant_name|default:"Main Lease" }}</td>
+                <td class="py-2 px-4 border-b text-center">{{ bill.total_amount }} {{ bill.currency }}</td>
+                <td class="py-2 px-4 border-b text-center">{{ bill.due_date }}</td>
+                <td class="py-2 px-4 border-b text-center">{{ bill.get_payment_status_display }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5" class="py-2 px-4 border-b text-center">No billing records found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

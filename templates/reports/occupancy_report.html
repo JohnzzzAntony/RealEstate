@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block header %}Reports{% endblock %}
+{% block content %}
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div class="bg-white p-6 rounded shadow">
+        <h3 class="font-bold text-lg mb-2">Occupancy Report</h3>
+        <p class="text-gray-600 mb-4">View property occupancy rates and unit status distribution.</p>
+        <a href="{% url 'occupancy_report' %}" class="text-blue-500 hover:underline">View Report &rarr;</a>
+    </div>
+    <div class="bg-white p-6 rounded shadow">
+        <h3 class="font-bold text-lg mb-2">Revenue Report</h3>
+        <p class="text-gray-600 mb-4">Summary of rent collection, paid invoices, and overdue amounts.</p>
+        <a href="{% url 'revenue_report' %}" class="text-blue-500 hover:underline">View Report &rarr;</a>
+    </div>
+</div>
+{% endblock %}

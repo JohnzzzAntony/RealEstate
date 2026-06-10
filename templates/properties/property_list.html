@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block header %}Properties{% endblock %}
+{% block content %}
+<div class="flex justify-between mb-4">
+    <h2 class="text-xl font-bold">Properties</h2>
+    <a href="{% url 'property_create' %}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Add Property</a>
+</div>
+<div class="bg-white shadow-md rounded my-6">
+    <table class="min-w-full bg-white">
+        <thead>
+            <tr>
+                <th class="py-2 px-4 border-b">Code</th>
+                <th class="py-2 px-4 border-b text-left">Property Name</th>
+                <th class="py-2 px-4 border-b">Type</th>
+                <th class="py-2 px-4 border-b">Status</th>
+                <th class="py-2 px-4 border-b">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for property in properties %}
+            <tr>
+                <td class="py-2 px-4 border-b text-center">{{ property.property_code }}</td>
+                <td class="py-2 px-4 border-b">{{ property.property_name }}</td>
+                <td class="py-2 px-4 border-b text-center">{{ property.get_property_type_display }}</td>
+                <td class="py-2 px-4 border-b text-center">{{ property.get_status_display }}</td>
+                <td class="py-2 px-4 border-b text-center">
+                    <a href="{% url 'property_detail' property.pk %}" class="text-blue-500 hover:underline">View</a>
+                    <a href="{% url 'property_update' property.pk %}" class="text-green-500 hover:underline ml-2">Edit</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5" class="py-2 px-4 border-b text-center">No properties found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

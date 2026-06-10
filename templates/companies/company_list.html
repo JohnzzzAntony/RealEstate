@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block header %}Companies{% endblock %}
+{% block content %}
+<div class="flex justify-between mb-4">
+    <h2 class="text-xl font-bold">Internal Tenant Companies</h2>
+    <a href="{% url 'company_create' %}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Add Company</a>
+</div>
+<div class="bg-white shadow-md rounded my-6">
+    <table class="min-w-full bg-white">
+        <thead>
+            <tr>
+                <th class="py-2 px-4 border-b">Code</th>
+                <th class="py-2 px-4 border-b text-left">Legal Name</th>
+                <th class="py-2 px-4 border-b">Status</th>
+                <th class="py-2 px-4 border-b">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for company in companies %}
+            <tr>
+                <td class="py-2 px-4 border-b text-center">{{ company.company_code }}</td>
+                <td class="py-2 px-4 border-b">{{ company.legal_name }}</td>
+                <td class="py-2 px-4 border-b text-center">{{ company.get_status_display }}</td>
+                <td class="py-2 px-4 border-b text-center">
+                    <a href="{% url 'company_detail' company.pk %}" class="text-blue-500 hover:underline">View</a>
+                    <a href="{% url 'company_update' company.pk %}" class="text-green-500 hover:underline ml-2">Edit</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4" class="py-2 px-4 border-b text-center">No companies found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

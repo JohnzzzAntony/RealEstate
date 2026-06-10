@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block header %}Subleases{% endblock %}
+{% block content %}
+<div class="flex justify-between mb-4">
+    <h2 class="text-xl font-bold">Active Subleases</h2>
+    <a href="{% url 'sublease_create' %}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">New Sublease</a>
+</div>
+<div class="bg-white shadow-md rounded my-6 overflow-x-auto">
+    <table class="min-w-full bg-white">
+        <thead>
+            <tr>
+                <th class="py-2 px-4 border-b">Reference</th>
+                <th class="py-2 px-4 border-b">Subtenant</th>
+                <th class="py-2 px-4 border-b">Unit</th>
+                <th class="py-2 px-4 border-b">End Date</th>
+                <th class="py-2 px-4 border-b">Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for lease in subleases %}
+            <tr>
+                <td class="py-2 px-4 border-b text-center">{{ lease.sublease_reference }}</td>
+                <td class="py-2 px-4 border-b">{{ lease.subtenant.tenant_name }}</td>
+                <td class="py-2 px-4 border-b text-center">{{ lease.unit.unit_code }}</td>
+                <td class="py-2 px-4 border-b text-center">{{ lease.lease_end_date }}</td>
+                <td class="py-2 px-4 border-b text-center">{{ lease.get_status_display }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5" class="py-2 px-4 border-b text-center">No subleases found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
